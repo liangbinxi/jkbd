@@ -27,6 +27,7 @@ public class splash extends Activity{
         public void onFinish() {
             Intent intent=new Intent(splash.this,MainActivity.class);
             startActivity(intent);
+
             splash.this.finish();
 
         }
