@@ -1,11 +1,13 @@
-package com.example.lbx.myapplication;
+package com.example.lbx.myapplication.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+
+import com.example.lbx.myapplication.R;
+
 /**
  * Created by lbx on 2017/6/29.
  */
