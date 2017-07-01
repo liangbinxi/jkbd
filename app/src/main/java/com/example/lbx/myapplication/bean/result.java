@@ -16,7 +16,7 @@ public class result {
 
     private int error_code;
     private String reason;
-    private List<?> result;
+    private List<Question> result;
 
     public int getError_code() {
         return error_code;
@@ -34,11 +34,11 @@ public class result {
         this.reason = reason;
     }
 
-    public List<?> getResult() {
+    public List<Question> getResult() {
         return result;
     }
 
-    public void setResult(List<?> result) {
+    public void setResult(List<Question> result) {
         this.result = result;
     }
 }
