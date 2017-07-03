@@ -11,6 +11,7 @@ import com.example.lbx.myapplication.ExamApplication;
 import com.example.lbx.myapplication.R;
 import com.example.lbx.myapplication.bean.Question;
 import com.example.lbx.myapplication.bean.item;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -58,7 +59,9 @@ public class ExamActivity extends AppCompatActivity {
             tv0p2.setText(exam.getItem2());
             tv0p3.setText(exam.getItem3());
             tv0p4.setText(exam.getItem4());
-
+            Picasso.with(ExamActivity.this)
+                    .load(exam.getUrl())
+                    .into(mImageView);
         }
     }
 
