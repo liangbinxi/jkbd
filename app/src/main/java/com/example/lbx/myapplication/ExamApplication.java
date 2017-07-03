@@ -7,6 +7,8 @@ import com.example.lbx.myapplication.activity.ExamActivity;
 import com.example.lbx.myapplication.bean.Question;
 import com.example.lbx.myapplication.bean.item;
 import com.example.lbx.myapplication.bean.result;
+import com.example.lbx.myapplication.blz.ExamBiz;
+import com.example.lbx.myapplication.blz.IExamBiz;
 import com.example.lbx.myapplication.utils.OkHttpUtils;
 import com.example.lbx.myapplication.utils.ResultUtils;
 
@@ -20,10 +22,12 @@ public class ExamApplication extends Application{
     item mitem;
     List<Question> mExamList;
     private static ExamApplication instance;
+    IExamBiz biz;
     @Override
     public void onCreate() {
         super.onCreate();
         instance=this;
+        biz=new ExamBiz();
         initData();
     }
 
@@ -35,43 +39,7 @@ public class ExamApplication extends Application{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                OkHttpUtils<item> utils=new OkHttpUtils<>(instance);
-                String uri="http://101.251.196.90:8080/JztkServer/examInfo";
-                utils.url(uri)
-                        .targetClass(item.class)
-                        .execute(new OkHttpUtils.OnCompleteListener<item>() {
-                            @Override
-                            public void onSuccess(item result) {
-                                Log.e("main","result="+result);
-                                mitem=result;
-                            }
-
-                            @Override
-                            public void onError(String error) {
-                                Log.e("main","error="+error);
-                            }
-                        });
-                OkHttpUtils<String> utils1=new OkHttpUtils<String>(instance);
-                String url2="http://101.251.196.90:8080/JztkServer/getQuestions?testType=rand";
-                utils1.url(url2)
-                        .targetClass(String.class)
-                        .execute(new OkHttpUtils.OnCompleteListener<String>() {
-                            @Override
-                            public void onSuccess(String jsonStr) {
-                                result result = ResultUtils.getListResultFromJson(jsonStr);
-                                if(result!=null && result.getError_code()==0){
-                                    List<Question> list=result.getResult();
-                                    if (list!=null && list.size()>0){
-                                        mExamList=list;
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onError(String error) {
-                                Log.e("main","error="+error);
-                            }
-                        });
+                biz.beginExam();
             }
         }).start();
 
@@ -92,4 +60,6 @@ public class ExamApplication extends Application{
     public void setmExamList(List<Question> mExamList) {
         this.mExamList = mExamList;
     }
+
+
 }

@@ -27,6 +27,7 @@ public class ExamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam);
         initView();
+
         initData();
     }
 
