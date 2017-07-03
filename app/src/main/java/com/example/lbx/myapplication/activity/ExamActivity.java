@@ -41,6 +41,7 @@ public class ExamActivity extends AppCompatActivity {
     }
 
     private void initData() {
+
         item examInfo = ExamApplication.getInstance().getMitem();
         if (examInfo!=null){
             showData(examInfo);
