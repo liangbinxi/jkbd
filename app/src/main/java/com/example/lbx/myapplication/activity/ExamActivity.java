@@ -42,6 +42,7 @@ public class ExamActivity extends AppCompatActivity {
     TextView tvExamInfo,tvExamTitle,tv0p1,tv0p2,tv0p3,tv0p4,tvLoad,tvNo,tvTime;
     CheckBox cb01,cb02,cb03,cb04;
     CheckBox[] cbs=new CheckBox[4];
+    TextView[] tv0ps=new TextView[4];
     LinearLayout layoutLoading,layout03,layout04;
     ImageView mImageView;
     ProgressBar dialog;
@@ -107,6 +108,10 @@ public class ExamActivity extends AppCompatActivity {
         cbs[1]=cb02;
         cbs[2]=cb03;
         cbs[3]=cb04;
+        tv0ps[0]=tv0p1;
+        tv0ps[1]=tv0p2;
+        tv0ps[2]=tv0p3;
+        tv0ps[3]=tv0p4;
         tvLoad = (TextView) findViewById(R.id.tv_load);
         mImageView =(ImageView) findViewById(R.id.im_exam_image);
         layoutLoading.setOnClickListener(new View.OnClickListener() {
@@ -241,8 +246,34 @@ public class ExamActivity extends AppCompatActivity {
                 int userCB=Integer.parseInt(userAnswer)-1;
                 cbs[userCB].setChecked(true);
                 setOptions(true);
+                setAnswerTextColor(userAnswer,exam.getAnswer());
             }else {
                 setOptions(false);
+                setOptionsColor();
+            }
+        }
+    }
+
+    private void setOptionsColor() {
+        for (TextView tv0p : tv0ps) {
+            tv0p.setTextColor(getResources().getColor(R.color.black));
+        }
+    }
+
+    private void setAnswerTextColor(String userAnswer, String answer) {
+        int ra=Integer.parseInt(answer)-1;
+        for (int i = 0; i < tv0ps.length; i++) {
+            if (i==ra){
+                tv0ps[i].setTextColor(getResources().getColor(R.color.green));
+            }else {
+                if (!userAnswer.equals(answer)){
+                    int ua=Integer.parseInt(userAnswer)-1;
+                    if (i==ua){
+                        tv0ps[i].setTextColor(getResources().getColor(R.color.red));
+                    }else {
+                        tv0ps[i].setTextColor(getResources().getColor(R.color.black));
+                    }
+                }
             }
         }
     }
